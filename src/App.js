@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { HashRouter as Router } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
+import Home from './Pages/Home/Home/Home';
+import Login from './Pages/Login/Login/Login';
+import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
+import Register from './Pages/Login/Register/Register';
+import OrderPage from './Pages/Home/OrderPage/OrderPage';
+import AuthProvider from "./contexts/AuthProvider/AuthProvider";
+import Products from "./Pages/Home/Products/Products";
+import SingleProduct from "./Pages/Home/SingleProduct/SingleProduct";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AuthProvider>
+      <Router>
+      <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/single-product" element={<SingleProduct />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/orderpage" element={<PrivateRoute>
+              <OrderPage />
+            </PrivateRoute>}>
+          </Route>
+        </Routes>
+      </Router>
+      </AuthProvider>
     </div>
   );
 }
